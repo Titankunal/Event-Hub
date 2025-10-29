@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar/page"
 import About from "./components/About/page"
 import Contact from "./components/Contact/page"
 import Footer from "./components/Footer/page"
+import EventList from "./components/Events/page"
 
 export default function Home() {
   return (
@@ -73,6 +74,7 @@ export default function Home() {
         </section>
       </main>
 
+      <EventList />
       <About />
       <Contact />
       <Footer />
