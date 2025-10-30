@@ -9,8 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
+    "axios": "^1.13.1",
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.3",
+    "firebase-admin": "^13.5.0",
     "lucide-react": "^0.548.0",
     "next": "16.0.1",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.56.1",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
