@@ -15,6 +15,7 @@ interface Event {
 export default function EventList() {
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -35,13 +36,19 @@ export default function EventList() {
     return <p className="text-center text-gray-400 py-20">Loading events...</p>
   }
 
+  // only first 6 shown unless showAll is true
+  const displayedEvents = showAll ? events : events.slice(0, 6)
+
   return (
     <section className="bg-white text-black px-6 py-10">
       <h2 className="text-3xl font-bold text-center mb-10">Upcoming Events in Sydney</h2>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-        {events.map(event => (
-          <div key={event.id} className="border border-gray-200 rounded-xl overflow-hidden shadow-md group transition-all duration-300 hover:shadow-lg hover:border-black">
+        {displayedEvents.map(event => (
+          <div
+            key={event.id}
+            className="border border-gray-200 rounded-xl overflow-hidden shadow-md group transition-all duration-300 hover:shadow-lg hover:border-black"
+          >
             <div className="relative w-full h-56 overflow-hidden">
               <Image
                 src={event.image}
@@ -61,7 +68,7 @@ export default function EventList() {
                   month: "short",
                   day: "numeric",
                   hour: "2-digit",
-                  minute: "2-digit"
+                  minute: "2-digit",
                 })}
               </p>
 
@@ -77,6 +84,17 @@ export default function EventList() {
           </div>
         ))}
       </div>
+
+      {events.length > 6 && (
+        <div className="text-center mt-10">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+          >
+            {showAll ? "Show Less" : "Show All Events"}
+          </button>
+        </div>
+      )}
     </section>
   )
 }
