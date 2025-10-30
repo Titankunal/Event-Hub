@@ -9,7 +9,7 @@ export default function Footer() {
           EventHub Sydney
         </h2>
         <p className="text-sm text-gray-400">
-          Here are my social links.
+          Here are my social site links.
         </p>
 
         <div className="flex justify-center space-x-6 mt-6">
