@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram } from "lucide-react"
+import { Instagram, Linkedin } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -9,17 +9,29 @@ export default function Footer() {
           EventHub Sydney
         </h2>
         <p className="text-sm text-gray-400">
-          Discover Sydney’s heartbeat — events, people, and stories that connect.
+          Here are my social links.
         </p>
 
         <div className="flex justify-center space-x-6 mt-6">
-          <Link href="#" className="hover:text-gray-600 transition"><Facebook className="w-5 h-5" /></Link>
-          <Link href="#" className="hover:text-gray-600 transition"><Twitter className="w-5 h-5" /></Link>
-          <Link href="#" className="hover:text-gray-600 transition"><Instagram className="w-5 h-5" /></Link>
+          <Link 
+            href="https://www.instagram.com/ku.nal_05/" 
+            target="_blank" 
+            className="hover:text-gray-600 transition"
+          >
+            <Instagram className="w-5 h-5" />
+          </Link>
+          
+          <Link 
+            href="https://www.linkedin.com/in/kunalhere/" 
+            target="_blank" 
+            className="hover:text-gray-600 transition"
+          >
+            <Linkedin className="w-5 h-5" />
+          </Link>
         </div>
 
         <div className="border-t border-gray-800 pt-5 text-xs text-gray-500">
-          © {new Date().getFullYear()} EventHub Sydney — All Rights Reserved.
+          © {new Date().getFullYear()} Kunal Bisht — All Rights Reserved.
         </div>
       </div>
     </footer>

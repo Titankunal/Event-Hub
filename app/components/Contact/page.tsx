@@ -77,7 +77,7 @@ export default function Contact() {
               rows={4}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              placeholder="Type your message..."
+              placeholder="I can recieve your mail..."
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black/60"
             ></textarea>
           </div>
