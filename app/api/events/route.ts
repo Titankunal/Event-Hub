@@ -1,26 +1,36 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  const mockEvents = [
-    {
-      id: "1",
-      title: "Sydney Music Festival",
-      description: "A grand celebration of live performances and local talent.",
-      venue: "Sydney Opera House",
-      date: "2025-11-12T18:00:00Z",
-      image: "https://images.unsplash.com/photo-1518972559570-7cc1309f3229?q=80&w=1400",
-      url: "https://www.eventbrite.com.au/"
-    },
-    {
-      id: "2",
-      title: "Food & Wine Expo",
-      description: "Taste the best wines and cuisines from around the world.",
-      venue: "ICC Sydney",
-      date: "2025-12-05T12:00:00Z",
-      image: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?q=80&w=1400",
-      url: "https://www.eventbrite.com.au/"
-    },
-  ]
+  try {
+    const apiKey = process.env.TICKETMASTER_API_KEY;
+    if (!apiKey) {
+      throw new Error("Missing Ticketmaster API key");
+    }
 
-  return NextResponse.json({ events: mockEvents })
+    const res = await fetch(
+      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=Sydney&countryCode=AU&size=50&sort=date,asc`
+    );
+
+    const data = await res.json();
+
+    if (!data._embedded || !data._embedded.events) {
+      return NextResponse.json({ status: "success", count: 0, events: [] });
+    }
+
+    const events = data._embedded.events.map((e: any) => ({
+      id: e.id,
+      title: e.name,
+      date: e.dates?.start?.localDate || "",
+      time: e.dates?.start?.localTime || "",
+      url: e.url,
+      image: e.images?.[0]?.url || "",
+      venue: e._embedded?.venues?.[0]?.name || "Unknown venue",
+      city: e._embedded?.venues?.[0]?.city?.name || "Sydney",
+    }));
+
+    return NextResponse.json({ status: "success", count: events.length, events });
+  } catch (error: any) {
+    console.error("Error fetching events:", error);
+    return NextResponse.json({ error: "Failed to fetch events", details: error.message });
+  }
 }
